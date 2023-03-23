@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const useHttp = async (requestConfig, applyData) => {
+const useHttp = (requestConfig, applyData) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -10,9 +10,9 @@ const useHttp = async (requestConfig, applyData) => {
 
     try {
       const response = await fetch(requestConfig.url, {
-        method: requestConfig.method,
-        headers: requestConfig.headers,
-        body: JSON.stringify(requestConfig.body)
+        method: requestConfig.method || 'GET',
+        headers: requestConfig.headers || {},
+        body: requestConfig.body ? JSON.stringify(requestConfig.body) : null
       })
 
       if (!response.ok) {
